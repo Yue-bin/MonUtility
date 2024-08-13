@@ -1,4 +1,4 @@
-dofile("Utility/monlog.lua")
+require("Utility/monlog")
 
 function Sleep(n)
     os.execute("sleep " .. tonumber(n))
