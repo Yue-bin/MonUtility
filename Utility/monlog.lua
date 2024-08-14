@@ -3,6 +3,13 @@
 monlog = {}
 
 
+--@region global
+--debug选项，默认关，影响到debug日志是否输出
+IS_DEBUG = false
+
+--@endregion
+
+
 --@region private
 
 --日志路径,默认为当前目录下的log.log,可自行修改
@@ -63,6 +70,9 @@ function monlog.log(msg, level)
     end
     logadder:write(os.date("%Y.%m.%d-%H:%M:%S  "))
     if level ~= nil then
+        if level == 0 and IS_DEBUG == false then
+            return false
+        end
         logadder:write("[" .. loglevel[level] .. "]")
     else
         logadder:write("[INFO]")
