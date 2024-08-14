@@ -18,6 +18,15 @@ local filelock = false
 --日志队列，用于删除日志时暂存
 local queue = {}
 
+--日志级别
+local loglevel = {
+    [0] = "DEBUG",
+    [1] = "INFO",
+    [2] = "WARN",
+    [3] = "ERROR",
+    [4] = "FATAL"
+}
+
 --@endregion
 
 
@@ -34,8 +43,17 @@ function monlog.init(path)
     return true
 end
 
---记录到日志(流)中
-function monlog.log(msg)
+--记录到日志(流)中,若有level则记录level
+-- loglevel
+-- 0:DEBUG
+-- 1:INFO
+-- 2:WARN
+-- 3:ERROR
+-- 4:FATAL
+function monlog.log(msg, level)
+    if level ~= nil then
+        assert((level >= 0 and level <= 4), "level is valid")
+    end
     if logadder == nil then
         return false
     end
@@ -43,7 +61,13 @@ function monlog.log(msg)
         table.insert(queue, msg)
         return false
     end
-    logadder:write(os.date("%Y.%m.%d-%H:%M:%S  ") .. msg .. "\n")
+    logadder:write(os.date("%Y.%m.%d-%H:%M:%S  "))
+    if level ~= nil then
+        logadder:write("[" .. loglevel[level] .. "]")
+    else
+        logadder:write("[INFO]")
+    end
+    logadder:write(msg .. "\n")
     return true
 end
 
