@@ -33,6 +33,8 @@ local loglevel = {
     [3] = "ERROR",
     [4] = "FATAL"
 }
+local loglevelmax = 4
+local loglevelmin = 0
 
 --@endregion
 
@@ -50,6 +52,13 @@ function monlog.init(path)
     return true
 end
 
+--loglevels
+monlog.DEBUG = 0
+monlog.INFO = 1
+monlog.WARN = 2
+monlog.ERROR = 3
+monlog.FATAL = 4
+
 --记录到日志(流)中,若有level则记录level
 -- loglevel
 -- 0:DEBUG
@@ -59,7 +68,10 @@ end
 -- 4:FATAL
 function monlog.log(msg, level)
     if level ~= nil then
-        assert((level >= 0 and level <= 4), "level is valid")
+        assert((level >= loglevelmin and level <= loglevelmax), "level is valid")
+        if level == 0 and IS_DEBUG == false then
+            return false
+        end
     end
     if logadder == nil then
         return false
@@ -70,9 +82,6 @@ function monlog.log(msg, level)
     end
     logadder:write(os.date("%Y.%m.%d-%H:%M:%S  "))
     if level ~= nil then
-        if level == 0 and IS_DEBUG == false then
-            return false
-        end
         logadder:write("[" .. loglevel[level] .. "]")
     else
         logadder:write("[INFO]")
