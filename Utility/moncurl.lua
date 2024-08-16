@@ -31,7 +31,7 @@ function moncurl.init()
 end
 
 function moncurl.Get_Status_Code()
-    local status_str = string.match(moncurl.Header_Data, "HTTP/%d%.%d (%d+)")
+    local status_str = string.match(moncurl.Header_Data, "HTTP/[^%s]+ (%d+)")
     local status_code = tonumber(status_str)
     return status_code
 end
