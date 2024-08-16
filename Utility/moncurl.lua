@@ -51,7 +51,7 @@ function moncurl.Check_Status_Code(status_code, eventstr)
         Monlog.log(eventstr .. " failed with nil status code", Monlog.ERROR)
         return false
     else
-        Monlog.log(eventstr .. "success with status code " .. status_code, Monlog.DEBUG)
+        Monlog.log(eventstr .. " success with status code " .. status_code, Monlog.DEBUG)
         return true
     end
 end
