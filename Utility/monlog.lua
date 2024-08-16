@@ -3,13 +3,6 @@
 monlog = {}
 
 
---@region global
---debug选项，默认关，影响到debug日志是否输出
-IS_DEBUG = false
-
---@endregion
-
-
 --@region private
 
 --日志路径,默认为当前目录下的log.log,可自行修改
@@ -40,6 +33,10 @@ local loglevelmin = 0
 
 
 --@region public
+
+--日志输出等级，默认为INFO
+monlog.LOG_LEVEL = monlog.INFO
+
 --使用日志路径初始化,返回是否成功
 function monlog.init(path)
     logpath = path or logpath
@@ -52,7 +49,7 @@ function monlog.init(path)
     return true
 end
 
---loglevels
+--loglevels readonly
 monlog.DEBUG = 0
 monlog.INFO = 1
 monlog.WARN = 2
@@ -69,7 +66,7 @@ monlog.FATAL = 4
 function monlog.log(msg, level)
     if level ~= nil then
         assert((level >= loglevelmin and level <= loglevelmax), "level is valid")
-        if level == 0 and IS_DEBUG == false then
+        if level < monlog.LOG_LEVEL then
             return false
         end
     end
