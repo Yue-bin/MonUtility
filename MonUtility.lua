@@ -43,3 +43,20 @@ function Get_Default_Write_Callback(_userparam)
     end
     return Default_Write_Callback
 end
+
+--给luacurl用的默认头回调
+Header_Data = ""
+function Get_Default_Header_Callback(_userparam)
+    --清空Header_Data
+    Header_Data = ""
+    local function Default_Header_Callback(userparam, buffer)
+        Header_Data = Header_Data .. buffer
+        return #buffer
+    end
+    local function Get_Status_Code()
+        local status_str = string.match(Header_Data, "HTTP/%d%.%d (%d+)")
+        local status_code = tonumber(status_str)
+        return status_code
+    end
+    return Default_Header_Callback, Get_Status_Code
+end
