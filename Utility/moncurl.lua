@@ -8,33 +8,23 @@ moncurl = {}
 
 --给luacurl用的默认写回调
 moncurl.Response_Data = ""
-function moncurl.Get_Default_Write_Callback(_userparam)
-    --清空Response_Data
-    moncurl.Response_Data = ""
-    local function Default_Write_Callback(userparam, buffer)
-        moncurl.Response_Data = moncurl.Response_Data .. buffer
-        return #buffer
-    end
-    return Default_Write_Callback
+function moncurl.Default_Write_Callback(userparam, buffer)
+    moncurl.Response_Data = moncurl.Response_Data .. buffer
+    return #buffer
 end
 
 --给luacurl用的默认头回调
 moncurl.Header_Data = ""
-function moncurl.Get_Default_Header_Callback(_userparam)
-    --清空Header_Data
-    moncurl.Header_Data = ""
-    local function Default_Header_Callback(userparam, buffer)
-        moncurl.Header_Data = moncurl.Header_Data .. buffer
-        return #buffer
-    end
-    return Default_Header_Callback
+function moncurl.Default_Header_Callback(userparam, buffer)
+    moncurl.Header_Data = moncurl.Header_Data .. buffer
+    return #buffer
 end
 
 local luacurl = require("luacurl")
 function moncurl.init()
     local curl = luacurl.new()
-    curl:setopt(luacurl.OPT_WRITEFUNCTION, moncurl.Get_Default_Write_Callback())
-    curl:setopt(luacurl.OPT_HEADERFUNCTION, moncurl.Get_Default_Header_Callback())
+    curl:setopt(luacurl.OPT_WRITEFUNCTION, moncurl.Default_Write_Callback())
+    curl:setopt(luacurl.OPT_HEADERFUNCTION, moncurl.Default_Header_Callback())
     return curl
 end
 
