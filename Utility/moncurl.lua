@@ -30,7 +30,8 @@ function moncurl.Get_Default_Header_Callback(_userparam)
     return Default_Header_Callback
 end
 
-function moncurl.init(luacurl)
+local luacurl = require("luacurl")
+function moncurl.init()
     local curl = luacurl.new()
     curl:setopt(luacurl.OPT_WRITEFUNCTION, moncurl.Get_Default_Write_Callback())
     curl:setopt(luacurl.OPT_HEADERFUNCTION, moncurl.Get_Default_Header_Callback())
