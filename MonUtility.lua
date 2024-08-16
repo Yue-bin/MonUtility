@@ -1,4 +1,5 @@
 --require("Utility/monlog")
+--require("Utility/moncurl")
 
 function Sleep(n)
     os.execute("sleep " .. tonumber(n))
@@ -30,33 +31,4 @@ function PrintTable(table, level, key)
         end
     end
     print(indent .. "}")
-end
-
---给luacurl用的默认写回调
-Response_Data = ""
-function Get_Default_Write_Callback(_userparam)
-    --清空Response_Data
-    Response_Data = ""
-    local function Default_Write_Callback(userparam, buffer)
-        Response_Data = Response_Data .. buffer
-        return #buffer
-    end
-    return Default_Write_Callback
-end
-
---给luacurl用的默认头回调
-Header_Data = ""
-function Get_Default_Header_Callback(_userparam)
-    --清空Header_Data
-    Header_Data = ""
-    local function Default_Header_Callback(userparam, buffer)
-        Header_Data = Header_Data .. buffer
-        return #buffer
-    end
-    local function Get_Status_Code()
-        local status_str = string.match(Header_Data, "HTTP/%d%.%d (%d+)")
-        local status_code = tonumber(status_str)
-        return status_code
-    end
-    return Default_Header_Callback, Get_Status_Code
 end
