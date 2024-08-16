@@ -65,3 +65,5 @@ function moncurl.Check_Response_Json_Data(eventstr)
         return true
     end
 end
+
+return moncurl
