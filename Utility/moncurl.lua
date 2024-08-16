@@ -23,8 +23,8 @@ end
 local luacurl = require("luacurl")
 function moncurl.init()
     local curl = luacurl.new()
-    curl:setopt(luacurl.OPT_WRITEFUNCTION, moncurl.Default_Write_Callback())
-    curl:setopt(luacurl.OPT_HEADERFUNCTION, moncurl.Default_Header_Callback())
+    curl:setopt(luacurl.OPT_WRITEFUNCTION, moncurl.Default_Write_Callback)
+    curl:setopt(luacurl.OPT_HEADERFUNCTION, moncurl.Default_Header_Callback)
     return curl
 end
 
