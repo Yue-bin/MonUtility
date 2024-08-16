@@ -49,17 +49,22 @@ function moncurl.Check_Status_Code(status_code, eventstr)
     end
 end
 
+--只能存单个cookie
 function moncurl.Get_Cookie()
     local cookie_str = string.match(moncurl.Header_Data, "Set%-Cookie: (.-)\r\n")
     return cookie_str
 end
 
-function moncurl.Save_Cookie_2File(cookiestr, filename)
+function moncurl.Save_Cookie_2File(ip, cookiestr, filename)
     local file = io.open(filename, "w")
+    local key = string.match(cookiestr, "(.-)=")
+    local value = string.match(cookiestr, "=(.-);")
     if file == nil then
         Monlog.log("Failed to open file " .. filename, Monlog.ERROR)
+        return
     end
-    file:write(cookiestr)
+    --我承认我急了，这里是超级硬编码
+    file:write(ip .. "\tFALSE\t\\\tFALSE\t0\t" .. key .. "\t" .. value)
     file:close()
 end
 
