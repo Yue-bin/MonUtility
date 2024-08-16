@@ -57,8 +57,16 @@ function moncurl.Check_Status_Code(status_code, eventstr)
 end
 
 function moncurl.Check_Response_Json_Data(eventstr)
-    if moncurl.Response_Data == nil or moncurl.Response_Data == "" or not (string.sub(moncurl.Response_Data, 1, 1) == "{" and string.sub(moncurl.Response_Data, -1) == "}") then
-        Monlog.log(eventstr .. " failed with invalid json response data", Monlog.ERROR)
+    if moncurl.Response_Data == nil or moncurl.Response_Data == "" then
+        Monlog.log(eventstr .. " failed with empty response data", Monlog.ERROR)
+        return false
+    elseif not (string.sub(moncurl.Response_Data, 1, 1) == "{" and string.sub(moncurl.Response_Data, -1) == "}") then
+        Monlog.log(eventstr .. " failed with non-json response data ", Monlog.ERROR)
+        Monlog.log(
+            eventstr ..
+            " failed with head char " ..
+            string.sub(moncurl.Response_Data, 1, 1) .. " end char " .. string.sub(moncurl.Response_Data, -1),
+            Monlog.DEBUG)
         return false
     else
         Monlog.log(eventstr .. " success with response data " .. moncurl.Response_Data, Monlog.DEBUG)
