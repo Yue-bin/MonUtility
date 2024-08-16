@@ -49,6 +49,20 @@ function moncurl.Check_Status_Code(status_code, eventstr)
     end
 end
 
+function moncurl.Get_Cookie()
+    local cookie_str = string.match(moncurl.Header_Data, "Set%-Cookie: (.-)\r\n")
+    return cookie_str
+end
+
+function moncurl.Save_Cookie_2File(cookiestr, filename)
+    local file = io.open(filename, "w")
+    if file == nil then
+        Monlog.log("Failed to open file " .. filename, Monlog.ERROR)
+    end
+    file:write(cookiestr)
+    file:close()
+end
+
 function moncurl.Check_Response_Json_Data(eventstr)
     if moncurl.Response_Data == nil or moncurl.Response_Data == "" then
         Monlog.log(eventstr .. " failed with empty response data", Monlog.ERROR)
