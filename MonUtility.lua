@@ -31,3 +31,15 @@ function PrintTable(table, level, key)
     end
     print(indent .. "}")
 end
+
+--给luacurl用的默认写回调
+Response_Data = ""
+function Get_Default_Write_Callback(userparam)
+    --清空Response_Data
+    Response_Data = ""
+    local function Default_Write_Callback(userparam, buffer)
+        Response_Data = Response_Data .. buffer
+        return #buffer
+    end
+    return Default_Write_Callback
+end
