@@ -59,7 +59,9 @@ end
 function moncurl.Check_Response_Json_Data(eventstr)
     if moncurl.Response_Data == nil or moncurl.Response_Data == "" or not (string.sub(moncurl.Response_Data, 1, 1) == "{" and string.sub(moncurl.Response_Data, -1) == "}") then
         Monlog.log(eventstr .. " failed with invalid json response data", Monlog.ERROR)
+        return false
     else
         Monlog.log(eventstr .. " success with response data " .. moncurl.Response_Data, Monlog.DEBUG)
+        return true
     end
 end
