@@ -32,3 +32,8 @@ function PrintTable(table, level, key)
     end
     print(indent .. "}")
 end
+
+function Trim_Space_HeadEnd(str)
+    local trimmed_str = str:gsub("^%s*(.-)%s*$", "%1")
+    return trimmed_str
+end

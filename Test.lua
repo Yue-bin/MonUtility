@@ -31,3 +31,8 @@ print(monlog.getlogover(5))
 monlog.log("001test001", monlog.INFO)
 --monlog.dellog(2)
 monlog.close()
+
+while true do
+    local str = io.read()
+    print(Trim_Space_HeadEnd(str))
+end
