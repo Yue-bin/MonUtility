@@ -34,7 +34,7 @@ end
 
 --给luacurl用的默认写回调
 Response_Data = ""
-function Get_Default_Write_Callback(userparam)
+function Get_Default_Write_Callback(_userparam)
     --清空Response_Data
     Response_Data = ""
     local function Default_Write_Callback(userparam, buffer)
