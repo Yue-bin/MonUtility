@@ -13,7 +13,7 @@ Timetable2 = os.date("*t", Time2)
 Date2 = os.date("%Y.%m.%d-%H:%M:%S  ", Time2)
 print(Date2)
 print(os.difftime(os.time(Timetable2), os.time(Timetable1)))
-]]
+
 local monlog = require("Utility/monlog")
 dofile("MonUtility.lua")
 print(monlog.init("./log.log"))
@@ -36,3 +36,16 @@ while true do
     local str = io.read()
     print(Trim_Space_HeadEnd(str))
 end
+]]
+dofile("MonUtility.lua")
+local fakejson_str = "1111iloveu"
+local json_str = require("lunajson").encode({
+    name = "John",
+    age = 30,
+    city = "New York"
+})
+
+print(PrintTable(TryDecodeJson(json_str)))
+print(TryDecodeJson(fakejson_str))
+print(TryDecodeJson(""))
+print(TryDecodeJson(nil))

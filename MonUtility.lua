@@ -57,3 +57,16 @@ function TrimAfterLastBracket(str)
         return str
     end
 end
+
+--给lunajson写的尝试解码
+--不知道为什么他没有try而且decode失败了就直接报错了
+--可能因为写lua写的）
+function TryDecodeJson(json_str)
+    local json = require("lunajson")
+    local success, result = pcall(json.decode, json_str)
+    if success then
+        return result
+    else
+        return nil
+    end
+end
