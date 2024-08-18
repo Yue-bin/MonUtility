@@ -39,9 +39,15 @@ end
 function moncurl.Check_Status_Code(status_code, eventstr)
     if status_code ~= 200 then
         Monlog.log(eventstr .. " failed with status code " .. status_code, Monlog.ERROR)
+        if moncurl.Response_Data ~= "" then
+            Monlog.log(eventstr .. " failed with response data " .. moncurl.Response_Data, Monlog.ERROR)
+        end
         return false
     elseif status_code == nil then
         Monlog.log(eventstr .. " failed with nil status code", Monlog.ERROR)
+        if moncurl.Response_Data ~= "" then
+            Monlog.log(eventstr .. " failed with response data " .. moncurl.Response_Data, Monlog.ERROR)
+        end
         return false
     else
         Monlog.log(eventstr .. " success with status code " .. status_code, Monlog.DEBUG)
