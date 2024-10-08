@@ -70,3 +70,14 @@ function TryDecodeJson(json_str)
         return nil
     end
 end
+
+function SafeRequire(name)
+    local status, content = pcall(require, name)
+    if not status then
+        monlog("failed to require " .. name .. "...", monlog.ERROR)
+        monlog("errmsg: " .. content, monlog.DEBUG)
+        return nil
+    else
+        return content
+    end
+end
