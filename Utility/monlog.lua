@@ -34,6 +34,13 @@ local loglevelmin = 0
 
 --@region public
 
+--loglevels readonly
+monlog.DEBUG = 0
+monlog.INFO = 1
+monlog.WARN = 2
+monlog.ERROR = 3
+monlog.FATAL = 4
+
 --日志输出等级，默认为INFO
 monlog.LOG_LEVEL = monlog.INFO
 
@@ -48,13 +55,6 @@ function monlog.init(path)
     filelock = false
     return true
 end
-
---loglevels readonly
-monlog.DEBUG = 0
-monlog.INFO = 1
-monlog.WARN = 2
-monlog.ERROR = 3
-monlog.FATAL = 4
 
 --记录到日志(流)中,若有level则记录level
 -- loglevel
